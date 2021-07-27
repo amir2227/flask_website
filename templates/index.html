@@ -10,7 +10,7 @@
   <link rel="shortcut icon" href="./images/logo-web.png">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Raleway:wght@400;700&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-<link rel="stylesheet" href="./style.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -33,7 +33,7 @@
       <a href="#home">Home</a>
       
     </div>
-  <img src="./images/logo-web.png"  class="header__logo">
+  <img src="{{ url_for('static', filename='img/logo-web.png') }}"  class="header__logo">
   </header>
 
   <div class="intro__lower"></div>
@@ -46,16 +46,16 @@
 <section id="features">
   
 
-<img src="./images/logo-web.png" class="customer__logo" id="inv"><img src="./images/logo-web.png" class="customer__logo" id="adv" >
-<img src="./images/logo-web.png" class="customer__logo" id="bey"><img src="./images/logo-web.png" class="customer__logo" id="nan">
-<img src="./images/logo-web.png" class="customer__logo" id="mor">
+<img src="{{ url_for('static', filename='img/logo-web.png') }}" class="customer__logo" id="inv"><img src="{{ url_for('static', filename='img/logo-web.png') }}" class="customer__logo" id="adv" >
+<img src="{{ url_for('static', filename='img/logo-web.png') }}" class="customer__logo" id="bey"><img src="{{ url_for('static', filename='img/logo-web.png') }}" class="customer__logo" id="nan">
+<img src="{{ url_for('static', filename='img/logo-web.png') }}" class="customer__logo" id="mor">
 
 
 
 <div class="features">
   <div class="inline">
 <div class="features__box"></div> 
-<img src="./images/plan.png" class="features__box__image" >
+<img src="{{ url_for('static', filename='img/plan.png') }}" class="features__box__image" >
   </div>
 <div class="inline_text">
 <h1 id="abouth1" style="display: inline-block;">Investing Skills</h1><br>
@@ -76,7 +76,7 @@
 </section>
 <section id="team">
   <div class="features_back"></div>
-  <img src="./images/“-2.png" class="head_img" >
+  <img src="{{ url_for('static', filename='img/“-2.png') }}" class="head_img" >
   <div class="heading">
     
     <h2 class="h3_delay">Our Team</h2>
@@ -85,15 +85,15 @@
   
 <div class="team">
   
-<div class="box"><img src="./images/Payam.png" class="img_delay"><div style="font-size: 14px;"><h3 class="h5_delay">Payam Khosravinejad</h3>Holding CEO</div></div>
-<div class="box"><img src="./images/Bard.png" class="img_delay"><h2 class="h5_delay">Brad Shojaei</h2>Beyond click CEO</div>
-<div class="box"><img src="./images/Saeid.png" class="img_delay" ><h2 class="h5_delay">Saeed Karam</h2>moroorgar CEO</div>
-<div class="box"><img src="./images/Hossein.png" class="img_delay"><h2 class="h5_delay">Hossein Esmaili</h2>Nano Net CEO</div>
-<div class="box"><img src="./images/Melody.png" class="img_delay" ><h2 class="h5_delay">Melodi Karam</h2>Advitex CEO</div>
+<div class="box"><img src="{{ url_for('static', filename='img/Payam.png') }}" class="img_delay"><div style="font-size: 14px;"><h3 class="h5_delay">Payam Khosravinejad</h3>Holding CEO</div></div>
+<div class="box"><img src="{{ url_for('static', filename='img/Bard.png') }}" class="img_delay"><h2 class="h5_delay">Brad Shojaei</h2>Beyond click CEO</div>
+<div class="box"><img src="{{ url_for('static', filename='img/Saeid.png') }}" class="img_delay" ><h2 class="h5_delay">Saeed Karam</h2>moroorgar CEO</div>
+<div class="box"><img src="{{ url_for('static', filename='img/Hossein.png') }}" class="img_delay"><h2 class="h5_delay">Hossein Esmaili</h2>Nano Net CEO</div>
+<div class="box"><img src="{{ url_for('static', filename='img/Melody.png') }}" class="img_delay" ><h2 class="h5_delay">Melodi Karam</h2>Advitex CEO</div>
 
 
 </div>
-<img src="./images/“.png" class="foot_img">
+<img src="{{ url_for('static', filename='img/“.png') }}" class="foot_img">
 </section>
 
 <section id="contact">
@@ -102,9 +102,9 @@
 
     <h1>Contact Us</h1>
     <div class="center">
-      <img src="./images/Email.png" class="img_delay" style="display: inline-block;" > &nbsp; <br><div style="padding-left: 7%; padding-bottom: 20px;">Contact@invskills.com</div></div>
+      <img src="{{ url_for('static', filename='img/Email.png') }}" class="img_delay" style="display: inline-block;" > &nbsp; <br><div style="padding-left: 7%; padding-bottom: 20px;">Contact@invskills.com</div></div>
       <div class="center">
-        <img src="./images/location.png" class="img_delay" style="display: inline-block;" > &nbsp; <br><div style="padding-left: 7%; padding-bottom: 20px;">Head office: Perth, WA, Australia</div></div>
+        <img src="{{ url_for('static', filename='img/location.png') }}" class="img_delay" style="display: inline-block;" > &nbsp; <br><div style="padding-left: 7%; padding-bottom: 20px;">Head office: Perth, WA, Australia</div></div>
    </div>
    
 <div class="contact__area">
@@ -141,9 +141,7 @@
 </section>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://unpkg.com/scrollreveal"></script>
-  <script  src="./script.js"></script>
-  <script  src="./style/js/functions.js"></script>
-  <script  src="./style/js/jsoneditor.min.js"></script>
+  <script  src="{{ url_for('static', filename='js/script.js') }}"></script>
   <script>
     function myFunction() {
       var x = document.getElementById("myTopnav");
