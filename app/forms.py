@@ -56,3 +56,13 @@ class ResetPasswordForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Reset Password')
+
+
+class UpdateLogoForm(FlaskForm):
+    inv_logo = FileField('Update Investing Skills Logo', validators=[FileAllowed(['jpg', 'png'])])
+    adv_logo = FileField('Update Advitex Logo', validators=[FileAllowed(['jpg', 'png'])])
+    bey_logo = FileField('Update Beyond Click Logo', validators=[FileAllowed(['jpg', 'png'])])
+    net_logo = FileField('Update Nano Net Logo', validators=[FileAllowed(['jpg', 'png'])])
+    mor_logo = FileField('Update Moroorgar Logo', validators=[FileAllowed(['jpg', 'png'])])
+    about_pic = FileField('Update About Picture', validators=[FileAllowed(['jpg', 'png'])])
+    submit = SubmitField('Update')

@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+      <div class="media">
+        <div class="media-body">
+          <h2 class="account-heading">{{ current_user.username }}</h2>
+          <p class="text-secondary">{{ current_user.email }}</p>
+        </div>
+      </div>
+        <form method="POST" action="" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Update Pictures</legend>
+                <div class="form-group">
+                    <img class="rounded-circle account-img" src="{{ logo.inv }}">
+                    {{ form.inv_logo.label() }}
+                    {{ form.inv_logo(class="form-control-file") }}
+                    {% if form.inv_logo.errors %}
+                        {% for error in form.inv_logo.errors %}
+                            <span class="text-danger">{{ error }}</span></br>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <img class="rounded-circle account-img" src="{{ logo.adv }}">
+                    {{ form.adv_logo.label() }}
+                    {{ form.adv_logo(class="form-control-file") }}
+                    {% if form.adv_logo.errors %}
+                        {% for error in form.adv_logo.errors %}
+                            <span class="text-danger">{{ error }}</span></br>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <img class="rounded-circle account-img" src="{{ logo.bey }}">
+                    {{ form.bey_logo.label() }}
+                    {{ form.bey_logo(class="form-control-file") }}
+                    {% if form.bey_logo.errors %}
+                        {% for error in form.bey_logo.errors %}
+                            <span class="text-danger">{{ error }}</span></br>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <img class="rounded-circle account-img" src="{{ logo.net }}">
+                    {{ form.net_logo.label() }}
+                    {{ form.net_logo(class="form-control-file") }}
+                    {% if form.net_logo.errors %}
+                        {% for error in form.net_logo.errors %}
+                            <span class="text-danger">{{ error }}</span></br>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <img class="rounded-circle account-img" src="{{ logo.mor }}">
+                    {{ form.mor_logo.label() }}
+                    {{ form.mor_logo(class="form-control-file") }}
+                    {% if form.mor_logo.errors %}
+                        {% for error in form.mor_logo.errors %}
+                            <span class="text-danger">{{ error }}</span></br>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <img class="rounded-circle account-img" src="{{ logo.about }}">
+                    {{ form.about_pic.label() }}
+                    {{ form.about_pic(class="form-control-file") }}
+                    {% if form.about_pic.errors %}
+                        {% for error in form.about_pic.errors %}
+                            <span class="text-danger">{{ error }}</span></br>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+{% endblock content %}

@@ -1,18 +1,25 @@
-import os
-import secrets
-from PIL import Image
 from flask import render_template, url_for, flash, redirect, request, jsonify
-from app import app, bcrypt, db, mail
-from app.forms import LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm, ContentForm
-from app.models import User, Content
+from app import app, bcrypt, db
+from app.forms import LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm, ContentForm, UpdateLogoForm
+from app.models import User, Content, Picture
+from app.utils import save_logo, save_picture, send_reset_email
 from flask_login import login_user , current_user, logout_user, login_required
-from flask_mail import Message
+
 
 @app.route("/")
 @app.route("/home")
 def home():
     content = Content.query.first()
-    return render_template('index.html', content=content)
+    pic = Picture.query.first()
+    
+    pics = {'inv': url_for('static', filename='img/'+ pic.inv_logo),
+            'adv': url_for('static', filename='img/'+ pic.adv_logo),
+            'bey': url_for('static', filename='img/'+ pic.bey_logo),
+            'net': url_for('static', filename='img/'+ pic.net_logo),
+            'mor': url_for('static', filename='img/'+ pic.mor_logo),
+            'about': url_for('static', filename='img/'+ pic.about_pic)}
+    
+    return render_template('index.html', content=content, logo=pics)
 
 @app.route("/content")
 def content():
@@ -47,20 +54,6 @@ def logout():
     return redirect(url_for('login'))
 
 
-def save_picture(form_picture):
-    random_hex = secrets.token_hex(8)
-    _, f_ext = os.path.splitext(form_picture.filename)
-    picture_fn = random_hex + f_ext
-    picture_path = os.path.join(app.root_path, 'static/img/profile', picture_fn)
-
-    output_size = (125, 125)
-    i = Image.open(form_picture)
-    i.thumbnail(output_size)
-    i.save(picture_path)
-
-    return picture_fn
-
-
 @app.route("/account", methods=['GET', 'POST'])
 @login_required
 def account():
@@ -81,17 +74,41 @@ def account():
     image_file = url_for('static', filename='img/profile/'+ current_user.image_file)
     return render_template('account.html', title='Account', image_file=image_file, form=form)
 
-
-def send_reset_email(user):
-    token = user.get_reset_token()
-    msg = Message('Password Reset Request',
-                  sender='noreply@demo.com',
-                  recipients=[user.email])
-    msg.body = f'''To reset your password, visit the following link:
-{url_for('reset_token', token=token, _external=True)}
-If you did not make this request then simply ignore this email and no changes will be made.
-'''
-    mail.send(msg)
+@app.route("/update_logo", methods=['GET', 'POST'])
+@login_required
+def update_logo():
+    form = UpdateLogoForm()
+    logo = Picture.query.first()
+    if form.validate_on_submit():
+        if form.inv_logo.data:
+            picture_file = save_logo(form.inv_logo.data)
+            logo.inv_logo = picture_file
+        if form.adv_logo.data:
+            picture_file = save_logo(form.adv_logo.data)
+            logo.adv_logo = picture_file
+        if form.bey_logo.data:
+            picture_file = save_logo(form.bey_logo.data)
+            logo.bey_logo = picture_file
+        if form.net_logo.data:
+            picture_file = save_logo(form.net_logo.data)
+            logo.net_logo = picture_file
+        if form.mor_logo.data:
+            picture_file = save_logo(form.mor_logo.data)
+            logo.mor_logo = picture_file
+        if form.about_pic.data:
+            picture_file = save_logo(form.about_pic.data)
+            logo.about_pic = picture_file
+        db.session.commit()
+        flash('Your website has been updated!', 'success')
+        return redirect(url_for('update_logo'))
+    pics = {'inv': url_for('static', filename='img/'+ logo.inv_logo),
+            'adv': url_for('static', filename='img/'+ logo.adv_logo),
+            'bey': url_for('static', filename='img/'+ logo.bey_logo),
+            'net': url_for('static', filename='img/'+ logo.net_logo),
+            'mor': url_for('static', filename='img/'+ logo.mor_logo),
+            'about': url_for('static', filename='img/'+ logo.about_pic)}
+    
+    return render_template('update_pics.html', title='Update Pictures', logo=pics, form=form)
 
 
 @app.route("/reset_password", methods=['GET', 'POST'])
@@ -149,8 +166,11 @@ def update_content():
             content.inv_phone = form.phone.data
         db.session.commit()
         flash('Your web site has been updated!', 'success')
-        return redirect(url_for('home'))
+        return redirect(url_for('update_content'))
     return render_template('update_content.html', title='Update Content', form=form)
+
+
+
 @app.errorhandler(404)
 def error_404(error):
     return render_template('errors/404.html'), 404

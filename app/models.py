@@ -43,3 +43,14 @@ class Content(db.Model):
 
     def __repr__(self) -> str:
         return super().__repr__()
+
+class Picture(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    inv_logo = db.Column(db.String(20), nullable=False, default='logo-web.png')
+    adv_logo = db.Column(db.String(20), nullable=False, default='logo-web.png')
+    bey_logo = db.Column(db.String(20), nullable=False, default='logo-web.png')
+    net_logo = db.Column(db.String(20), nullable=False, default='logo-web.png')
+    mor_logo = db.Column(db.String(20), nullable=False, default='logo-web.png')
+    about_pic = db.Column(db.String(20), nullable=False, default='plan.png')
+    def __repr__(self):
+        return f"Picture('{self.inv_logo}', '{self.adv_logo}', '{self.bey_logo}', '{self.net_logo}', '{self.mor_logo}', '{self.about_pic}')"
