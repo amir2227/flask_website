@@ -1,9 +1,9 @@
 import os
 import secrets
 from PIL import Image
-from flask import render_template, url_for, flash, redirect, request
+from flask import render_template, url_for, flash, redirect, request, jsonify
 from app import app, bcrypt, db, mail
-from app.forms import RegistrationForm, LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm
+from app.forms import LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm, ContentForm
 from app.models import User, Content
 from flask_login import login_user , current_user, logout_user, login_required
 from flask_mail import Message
@@ -11,19 +11,31 @@ from flask_mail import Message
 @app.route("/")
 @app.route("/home")
 def home():
-    return render_template('index.html')
+    content = Content.query.first()
+    return render_template('index.html', content=content)
+
+@app.route("/content")
+def content():
+    c = Content.query.first()
+    con = {}
+    con['inv'] = c.inv_content
+    con['adv'] = c.adv_content
+    con['bey'] = c.bey_content
+    con['net'] = c.net_content
+    con['mor'] = c.mor_content
+    return jsonify(con)
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('dashbord'))
+        return redirect(url_for('account'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('dashbord'))
+            return redirect(next_page) if next_page else redirect(url_for('account'))
         else:
             flash('Unsuccessful login. Please check Email and Password.', 'danger')
     return render_template('login.html', title='Login', form=form)
@@ -113,6 +125,32 @@ def reset_token(token):
     return render_template('reset_token.html', title='Reset Password', form=form)
 
 
+@app.route("/update_content", methods=['GET', 'POST'])
+@login_required
+def update_content():
+    form = ContentForm()
+    if form.validate_on_submit():
+        content = Content.query.first()
+        if form.invskills.data:
+            content.inv_content = form.invskills.data
+        if form.advitex.data:
+            content.adv_content = form.advitex.data
+        if form.beyondclick.data:
+            content.bey_content = form.beyondclick.data
+        if form.nanonet.data:
+            content.net_content = form.nanonet.data
+        if form.moroorgar.data:
+            content.mor_content = form.moroorgar.data
+        if form.email.data:
+            content.inv_email = form.email.data
+        if form.address.data:
+            content.inv_address = form.address.data
+        if form.phone.data:
+            content.inv_phone = form.phone.data
+        db.session.commit()
+        flash('Your web site has been updated!', 'success')
+        return redirect(url_for('home'))
+    return render_template('update_content.html', title='Update Content', form=form)
 @app.errorhandler(404)
 def error_404(error):
     return render_template('errors/404.html'), 404

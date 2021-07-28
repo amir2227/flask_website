@@ -41,11 +41,10 @@ $(document).ready(function () {
           $("#abouth1").text('Investing Skills').fadeIn();
       })
       $("#p1").fadeOut(function () {
-        $.getJSON("data/data.json", function(json) {
-          $("#p1").text(json['invskills']).fadeIn();
-          json['moroorgar'] = "changed";
+        $.getJSON('http://127.0.0.1:5000/content', function (data){
+          $("#p1").text(data.inv).fadeIn();
+        });
           
-      });
     })
   })
   $("#adv").click(function () {
@@ -53,9 +52,9 @@ $(document).ready(function () {
         $("#abouth1").text('Advitex').fadeIn();
     })
     $("#p1").fadeOut(function () {
-      $.getJSON("data/data.json", function(json) {
-        $("#p1").text(json['advitex']).fadeIn();
-    });
+      $.getJSON('http://127.0.0.1:5000/content', function (data){
+          $("#p1").text(data.adv).fadeIn();
+        });
   })
 })
 $("#bey").click(function () {
@@ -63,10 +62,9 @@ $("#bey").click(function () {
       $("#abouth1").text('Beyond Click').fadeIn();
   })
   $("#p1").fadeOut(function () {
-    $.getJSON("data/data.json", function(json) {
-      $("#p1").text(json['beyondclick']).fadeIn();
-  });
-  
+    $.getJSON('http://127.0.0.1:5000/content', function (data){
+      $("#p1").text(data.bey).fadeIn();
+    });
 })
 })
 $("#nan").click(function () {
@@ -74,9 +72,9 @@ $("#nan").click(function () {
       $("#abouth1").text('Nano Net').fadeIn();
   })
   $("#p1").fadeOut(function () {
-    $.getJSON("data/data.json", function(json) {
-      $("#p1").text(json['net']).fadeIn();
-  });
+    $.getJSON('http://127.0.0.1:5000/content', function (data){
+          $("#p1").text(data.net).fadeIn();
+        });
 })
 })
 $("#mor").click(function () {
@@ -84,9 +82,9 @@ $("#mor").click(function () {
       $("#abouth1").text('Moroorgar').fadeIn();
   })
   $("#p1").fadeOut(function () {
-    $.getJSON("data/data.json", function(json) {
-      $("#p1").text(json['moroorgar']).fadeIn();
-  });
+    $.getJSON('http://127.0.0.1:5000/content', function (data){
+          $("#p1").text(data.mor).fadeIn();
+        });
 })
 })
 });

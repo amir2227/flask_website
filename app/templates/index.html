@@ -59,18 +59,7 @@
   </div>
 <div class="inline_text">
 <h1 id="abouth1" style="display: inline-block;">Investing Skills</h1><br>
-<p id="p1" >Investing Skills Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-  Ut vehicula pulvinar lorem in vulputate. Sed congue pretium justo varius egestas. 
-  Etiam vulputate, diam id cursus varius, metus enim pretium enim, eu maximus lectus ligula vel felis. 
-  Donec suscipit orci vel ipsum malesuada dapibus. Sed eu lacus eu nulla sagittis ornare. 
-  Aliquam eu malesuada diam, et rhoncus nibh. Vivamus fringilla, mauris vel tincidunt tincidunt, 
-  mauris elit placerat purus, eu venenatis sapien turpis sed dui. Suspendisse purus dolor, 
-  iaculis eget massa ac, sollicitudin fermentum ante. Vestibulum ornare suscipit mauris. 
-  Duis nec mi eu augue convallis ultrices. Fusce euismod magna et placerat ornare. Proin condimentum, 
-  est et gravida sagittis, neque felis vulputate diam, sit amet posuere quam tortor ac nibh. 
-  Curabitur scelerisque dolor a ex convallis, et gravida augue malesuada. Nullam non lacus varius 
-  velit sodales suscipit. Quisque dapibus erat ornare pretium gravida. 
-  Suspendisse aliquet orci ac quam gravida convallis.</p>
+<p id="p1" >{{ content.inv_content }}</p>
 </div>
 </div>
 </section>
@@ -102,9 +91,9 @@
 
     <h1>Contact Us</h1>
     <div class="center">
-      <img src="{{ url_for('static', filename='img/Email.png') }}" class="img_delay" style="display: inline-block;" > &nbsp; <br><div style="padding-left: 7%; padding-bottom: 20px;">Contact@invskills.com</div></div>
+      <img src="{{ url_for('static', filename='img/Email.png') }}" class="img_delay" style="display: inline-block;" > &nbsp; <br><div style="padding-left: 7%; padding-bottom: 20px;">{{content.inv_email}}</div></div>
       <div class="center">
-        <img src="{{ url_for('static', filename='img/location.png') }}" class="img_delay" style="display: inline-block;" > &nbsp; <br><div style="padding-left: 7%; padding-bottom: 20px;">Head office: Perth, WA, Australia</div></div>
+        <img src="{{ url_for('static', filename='img/location.png') }}" class="img_delay" style="display: inline-block;" > &nbsp; <br><div style="padding-left: 7%; padding-bottom: 20px;">{{content.inv_address}}</div></div>
    </div>
    
 <div class="contact__area">
