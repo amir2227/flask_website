@@ -97,10 +97,37 @@
    </div>
    
 <div class="contact__area">
-  <input type="text" class="contact_text"  placeholder="&#xf007 Write your name">
-  <input type="text" class="contact_text" placeholder="&#xf0e0 Write your email">
-  <textarea id="w3review" name="w3review" rows="5" cols="50" class="contact__text__area" placeholder="&#xf040 Write your message"></textarea>
-  <input type="submit" class="sub_btn" name="Submit">
+  <form action="" method="POST">
+    {{ form.name(class="contact_text", placeholder="Write your name") }}
+  <div class="form-group">
+    {% if form.email.errors %}
+        {{ form.email(class="contact_text", style="border-color: rgba(250, 10, 10, 0.753);") }}
+        <div class="invalid-feedback" >
+            {% for error in form.email.errors %}
+                <span style="font-size: 11px;">{{ error }}</span>
+            {% endfor %}
+        </div>
+    {% else %}
+        {{ form.email(class="contact_text", placeholder="Write your email", onkeydown="emailCheck()") }}
+    {% endif %}
+</div>
+{{ form.message(class="contact__text__area", placeholder="Write your message", rows="5", cols="50") }}
+{{ form.submit(class="sub_btn", id="sub") }}
+  
+<p class="hidden" id="emailWarning" style="font-size: 11px; text-align: center;">Please enter a valid email address</p>
+</form>
+{% if form.name.errors %}
+{% for error in form.name.errors %}
+                <span style="font-size: 11px;">{{ error }}</span>
+            {% endfor %}
+        
+    {% endif %}
+    {% if form.message.errors %}
+{% for error in form.message.errors %}
+                <span style="font-size: 11px;">{{ error }}</span>
+            {% endfor %}
+        
+    {% endif %}
   </div>
   
 </section>

@@ -5,10 +5,10 @@ const emailCheck = () => {
   const mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
  
   if (emailAddress.match(mailFormat)) {
-    emailInput.classList.remove('landing__text__email--red');
+    document.getElementById('sub').disabled = false
     document.getElementById('emailWarning').classList.add('hidden');
   } else if (!emailAddress.match(mailFormat)) {
-    emailInput.classList.add('landing__text__email--red');
+    document.getElementById('sub').disabled = true
     document.getElementById('emailWarning').classList.remove('hidden');
   }
 }
@@ -36,6 +36,7 @@ sr.reveal ('textarea',{})
 sr.reveal ('.inline_text',{})
 
 $(document).ready(function () {
+  
   $("#inv").click(function () {
       $("#abouth1").fadeOut(function () {
           $("#abouth1").text('Investing Skills').fadeIn();

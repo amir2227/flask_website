@@ -1,25 +1,34 @@
+from types import MethodType
+from typing import Any
 from flask import render_template, url_for, flash, redirect, request, jsonify
+from werkzeug.utils import validate_arguments
+from wtforms.validators import Email
 from app import app, bcrypt, db
-from app.forms import LoginForm, UpdateAccountForm, RequestResetForm, ResetPasswordForm, ContentForm, UpdateLogoForm
+from app.forms import (LoginForm, UpdateAccountForm, RequestResetForm,
+                    ResetPasswordForm, ContentForm, UpdateLogoForm, ContactForm)
 from app.models import User, Content, Picture
-from app.utils import save_logo, save_picture, send_reset_email
+from app.utils import save_logo, save_picture, send_reset_email, send_contact_email
 from flask_login import login_user , current_user, logout_user, login_required
 
 
-@app.route("/")
+@app.route("/", methods=['POST', 'GET'])
 @app.route("/home")
 def home():
     content = Content.query.first()
     pic = Picture.query.first()
-    
     pics = {'inv': url_for('static', filename='img/'+ pic.inv_logo),
             'adv': url_for('static', filename='img/'+ pic.adv_logo),
             'bey': url_for('static', filename='img/'+ pic.bey_logo),
             'net': url_for('static', filename='img/'+ pic.net_logo),
             'mor': url_for('static', filename='img/'+ pic.mor_logo),
             'about': url_for('static', filename='img/'+ pic.about_pic)}
-    
-    return render_template('index.html', content=content, logo=pics)
+    form = ContactForm()
+    if request.method == 'POST':
+        name = form.name.data
+        email = form.email.data
+        message = form.message.data
+        send_contact_email(name=name, email=email, message=message)
+    return render_template('index.html', content=content, logo=pics, form=form)
 
 @app.route("/content")
 def content():
@@ -169,7 +178,11 @@ def update_content():
         return redirect(url_for('update_content'))
     return render_template('update_content.html', title='Update Content', form=form)
 
-
+@app.route("/send_mail", methods=['POST'])
+def send_mail():
+    form = ContactForm()
+    if form.validate_on_submit():
+        print(form.email.data)
 
 @app.errorhandler(404)
 def error_404(error):

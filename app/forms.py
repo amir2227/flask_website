@@ -66,3 +66,9 @@ class UpdateLogoForm(FlaskForm):
     mor_logo = FileField('Update Moroorgar Logo', validators=[FileAllowed(['jpg', 'png'])])
     about_pic = FileField('Update About Picture', validators=[FileAllowed(['jpg', 'png'])])
     submit = SubmitField('Update')
+
+class ContactForm(FlaskForm):
+    name = StringField('Name', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    message = TextAreaField('Message', validators=[DataRequired()])
+    submit = SubmitField('Send')

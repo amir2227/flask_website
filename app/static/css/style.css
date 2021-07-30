@@ -480,6 +480,7 @@ section {
     padding-bottom: 20px;
     border-color: #a3a3a379;
     border-style: solid;
+    text-align: center;
 }
 .contact_text {
     width: 95%;
@@ -492,6 +493,7 @@ section {
     border-color: rgba(177, 175, 175, 0.582);
     font-family: FontAwesome;
     padding-left: 5%;
+    
 }
 .contact_text::placeholder{
     color: rgba(255, 255, 255, 0.685);
@@ -526,6 +528,9 @@ section {
     border-radius: 80px;
     color: #fff;
     height: 38px;
+}
+.sub_btn:hover {
+    cursor: pointer;
 }
 .center{
     line-height: 1.22;

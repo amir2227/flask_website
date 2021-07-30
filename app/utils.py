@@ -18,6 +18,13 @@ If you did not make this request then simply ignore this email and no changes wi
     mail.send(msg)
 
 
+def send_contact_email(name, email, message):
+    msg = Message('Contact Us Request',
+                  sender= email,
+                  recipients=['amir.reza2823@gmail.com'])
+    msg.body = f'sender name is {name} \n email: {email} \n message body: {message}'
+    mail.send(msg)
+
 def save_logo(form_picture):
     random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_picture.filename)
